@@ -1,45 +1,41 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    loginContainer: {
+    verifyContainer: {
         marginHorizontal: 40,
     },
     title: {
-        textTransform: 'uppercase',
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 20,
         marginTop: 180,
-        marginBottom: 50,
+        marginBottom: 10,
+    },
+    optSend: {
+        textAlign: 'center',
+        fontSize: 15,
     },
 
-    loginContent: {
-        marginVertical: 15,
-    },
-
-    inputContent: {
+    verifyContent: {
         flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 5,
-        height: 50,
+        gap: 20,
+        justifyContent: 'center',
+        marginTop: 40,
+        marginBottom: 40,
     },
-
-    logoSdt: {
-        width: 30,
-        height: 20,
-        marginRight: 10,
-    },
-    inputSdt: {
-        flex: 1,
+    otpInputContainer: {
         height: 40,
-        borderLeftWidth: 1,
-        paddingLeft: 10,
+        width: 100,
+        borderWidth: 1,
+        borderRadius: 10,
+        justifyContent: 'center',
+    },
+    otpInput: {
+        textAlign: 'center',
     },
 
-    btnContinue: {
-        backgroundColor: '#FF7527',
+    btnVerify: {
+        backgroundColor: '#45849f',
         padding: 15,
         borderRadius: 10,
     },
