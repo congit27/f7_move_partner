@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
 
     btnVerify: {
-        backgroundColor: '#45849f',
+        backgroundColor: '#FF7527',
         padding: 15,
         borderRadius: 10,
     },

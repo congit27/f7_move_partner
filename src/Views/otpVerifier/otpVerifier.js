@@ -21,7 +21,11 @@ const OtpVerifier = ({ navigation }) => {
                     </View>
                 </View>
                 <View>
-                    <TouchableOpacity activeOpacity={0.8} style={styles.btnVerify}>
+                    <TouchableOpacity
+                        activeOpacity={0.8}
+                        style={styles.btnVerify}
+                        onPress={() => navigation.navigate('MainDrawer')}
+                    >
                         <Text style={styles.btnText}>Verify</Text>
                     </TouchableOpacity>
                 </View>

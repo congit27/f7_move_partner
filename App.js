@@ -5,7 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from './src/Views/splash/splash';
 import LoginRegister from './src/Views/loginRegister/loginRegister';
 import OtpVerifier from './src/Views/otpVerifier/otpVerifier';
-
+import Home from './src/Views/sidebar/Home';
+import MainDrawer from './src/components/MainDrawer';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -30,6 +31,8 @@ export default function App() {
                     options={{ cardStyleInterpolator: forFade }}
                 />
                 <Stack.Screen name="OtpVerifier" component={OtpVerifier} options={{ cardStyleInterpolator: forFade }} />
+                <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: forFade }} />
+                <Stack.Screen name="MainDrawer" component={MainDrawer} options={{ cardStyleInterpolator: forFade }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
