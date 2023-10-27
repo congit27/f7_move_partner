@@ -2,13 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import { View, Image, Text, TouchableOpacity, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import ModalNotification from '../../components/Modal/ModalNotification';
 import styles from './HomeStyle';
 
 const Home = ({ navigation }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
 
     const toggleOpen = () => {
         setIsOpen(!isOpen);
+    };
+    const toggleAlert = () => {
+        setIsAlertVisible(!isAlertVisible);
     };
     return (
         <>
@@ -30,7 +35,11 @@ const Home = ({ navigation }) => {
                             {isOpen ? 'Đã mở chế độ nhận yêu cầu' : 'Mở chế độ nhận yêu cầu'}
                         </Text>
                     </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.btnOpenReceiveRequest} onPress={toggleAlert}>
+                        <Text style={styles.btnText}>Hiển thị thông báo</Text>
+                    </TouchableOpacity>
                 </View>
+                <ModalNotification isVisible={isAlertVisible} toggleAlert={toggleAlert} />
             </View>
         </>
     );
