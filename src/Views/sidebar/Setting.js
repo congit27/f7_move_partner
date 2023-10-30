@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 
-const Help = ({ navigation }) => {
+const Setting = ({ navigation }) => {
     return (
         <>
             <View>
@@ -11,4 +11,4 @@ const Help = ({ navigation }) => {
     );
 };
 
-export default Help;
+export default Setting;

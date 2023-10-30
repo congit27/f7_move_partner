@@ -12,6 +12,8 @@ import History from '../Views/sidebar/History';
 import Home from '../Views/sidebar/Home';
 import Profile from '../Views/sidebar/Profile';
 import Income from '../Views/sidebar/Income';
+import Help from '../Views/Help/Help';
+import RepairItem from '../Views/Help/RepairItem';
 
 const Drawer = createDrawerNavigator();
 
@@ -120,6 +122,22 @@ const MainDrawer = () => {
                         drawerIcon: () => <SimpleLineIcons name="settings" size={20} color="#fff" />,
                     }}
                     component={Setting}
+                />
+                <Drawer.Screen
+                    name="Help"
+                    options={{
+                        drawerLabel: '',
+                        title: 'Help',
+                    }}
+                    component={Help}
+                />
+                <Drawer.Screen
+                    name="RepairItem"
+                    options={{
+                        drawerLabel: '',
+                        title: 'RepairItem',
+                    }}
+                    component={RepairItem}
                 />
             </Drawer.Navigator>
         </NavigationContainer>
