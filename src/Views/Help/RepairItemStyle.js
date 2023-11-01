@@ -52,6 +52,24 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#9A9A9A',
     },
+    textTotalPrice: {
+        fontSize: 16,
+        marginTop: 430,
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    helpBtn: {
+        backgroundColor: '#FF7527',
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 30,
+    },
+    btnText: {
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
 });
 
 export default styles;

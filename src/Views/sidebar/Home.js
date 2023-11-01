@@ -20,15 +20,13 @@ Notifications.setNotificationHandler({
 
 const Home = ({ navigation }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [isAlertVisible, setIsAlertVisible] = useState(true);
+    const [isAlertVisible, setIsAlertVisible] = useState(false);
     const [expoPushToken, setExpoPushToken] = useState('');
     const [notification, setNotification] = useState(false);
     const [receiveRequests, setReceiveRequests] = useState(false);
-    const [ReceivedRequestData, setReceivedRequestData] = useState(false);
-    const navigations = useNavigation(); // lấy navigation
+    const [ReceivedRequestData, setReceivedRequestData] = useState(true);
     const [isAccidentVisible, setIsAccidentVisible] = useState(false);
-    const [isAccidentReportVisible, setIsAccidentReportVisible] = useState(false);
-    const [isModalNotificationVisible, setIsModalNotificationVisible] = useState(true);
+    const [senderInfo, setSenderInfo] = useState(null);
 
     const [partnerLocation, setPartnerLocation] = useState(null);
 
@@ -44,6 +42,7 @@ const Home = ({ navigation }) => {
     const handleToggleReceiveRequests = () => {
         if (!receiveRequests) {
             socket.emit('send-expo-push-token', { token: expoPushToken });
+            console.log('token: ',expoPushToken)
         } else {
             socket.emit('close-connect');
         }
@@ -76,8 +75,7 @@ const Home = ({ navigation }) => {
 
         // Get data From WebSocket
         socket.on('new-rescue-request', (data) => {
-            console.log('Received rescue request:', data);
-
+            console.log('Nhận thông báo từ customer:', data);
             (async () => {
                 let add = await Location.reverseGeocodeAsync(data.location.coords); // convert customer's location to address
                 // Display notification
@@ -86,10 +84,10 @@ const Home = ({ navigation }) => {
                     message: data.message,
                     address: `${add[0].street}, ${add[0].district}, ${add[0].subregion}, ${add[0].city}`,
                 });
-                setReceivedRequestData(requestInfo);
                 setIsAlertVisible(true);
             })();
         });
+        
 
         return () => {
             Notifications.removeNotificationSubscription(notificationListener.current);
@@ -131,7 +129,7 @@ const Home = ({ navigation }) => {
                         <Text style={styles.btnText}>Hiển thị thông báo</Text>
                     </TouchableOpacity> */}
                 </View>
-                <ModalNotification isVisible={isAlertVisible} toggleAlert={toggleAlert} requestInfo={ReceivedRequestData} navigation={navigation} />
+                <ModalNotification isVisible={isAlertVisible} senderInfo={ReceivedRequestData} toggleAlert={toggleAlert} navigation={navigation} />
             </View>
         </>
     );
