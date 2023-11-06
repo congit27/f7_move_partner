@@ -1,19 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import styles from './ModalNotificationStyle';
 import io from 'socket.io-client';
 
-
 const ModalNotification = ({ isVisible, toggleAlert, senderInfo, navigation }) => {
-    const socket = io('https://railwaytest-production-a531.up.railway.app/');
+    const socket = io('http://192.168.0.102:3000');
     const [errorMsg, setErrorMsg] = useState(null);
     const [location, setLocation] = useState(null);
 
     const handelAccept = () => {
-      console.log('Gửi thông báo thành công');
-      socket.emit('Response', {message: 'Yêu cầu được chấp nhận.'})
-  
-    }
+        console.log('Gửi thông báo thành công');
+        socket.emit('Response', { message: 'Yêu cầu được chấp nhận.' });
+    };
 
     const handleConfirm = () => {
         // Điều hướng đến trang "Help" khi người dùng xác nhận
@@ -23,17 +21,17 @@ const ModalNotification = ({ isVisible, toggleAlert, senderInfo, navigation }) =
         toggleAlert();
     };
     useEffect(() => {
-      (async () => {
-          let { status } = await Location.requestForegroundPermissionsAsync();
-          if (status !== 'granted') {
-              setErrorMsg('Permission to access location was denied');
-              return;
-          }
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
 
-          let location = await Location.getCurrentPositionAsync({});
-          setLocation(location);
-      })();
-  }, []);
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+        })();
+    }, []);
 
     return (
         <Modal transparent={true} visible={isVisible} animationType="slide" onRequestClose={toggleAlert}>

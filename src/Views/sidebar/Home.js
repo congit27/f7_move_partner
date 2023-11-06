@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 import * as Notifications from 'expo-notifications';
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native';
-import pushNotificationsRegister from '/CODE/Linhtinh/Demo_f7/f7_move_partner/src/until/pushNotificationsRegister';
+import pushNotificationsRegister from '../../util/pushNotificationsRegister';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -37,12 +37,12 @@ const Home = ({ navigation }) => {
         setIsAccidentVisible(true);
     };
 
-    const socket = io('https://railwaytest-production-a531.up.railway.app/');
+    const socket = io('http://192.168.0.102:3000');
     // https://railwaytest-production-a531.up.railway.app/
     const handleToggleReceiveRequests = () => {
         if (!receiveRequests) {
             socket.emit('send-expo-push-token', { token: expoPushToken });
-            console.log('token: ',expoPushToken)
+            console.log('token: ', expoPushToken);
         } else {
             socket.emit('close-connect');
         }
@@ -87,7 +87,12 @@ const Home = ({ navigation }) => {
                 setIsAlertVisible(true);
             })();
         });
-        
+
+        // Get cancel request from WS
+        socket.on('send-cancel-request', (data) => {
+            console.log(data);
+            setIsAlertVisible(false);
+        });
 
         return () => {
             Notifications.removeNotificationSubscription(notificationListener.current);
@@ -129,7 +134,12 @@ const Home = ({ navigation }) => {
                         <Text style={styles.btnText}>Hiển thị thông báo</Text>
                     </TouchableOpacity> */}
                 </View>
-                <ModalNotification isVisible={isAlertVisible} senderInfo={ReceivedRequestData} toggleAlert={toggleAlert} navigation={navigation} />
+                <ModalNotification
+                    isVisible={isAlertVisible}
+                    senderInfo={ReceivedRequestData}
+                    toggleAlert={toggleAlert}
+                    navigation={navigation}
+                />
             </View>
         </>
     );
