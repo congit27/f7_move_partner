@@ -1,14 +1,14 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import { View, Image, Text, TouchableOpacity, Button, Alert } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import ModalNotification from '../../components/Modal/ModalNotification';
-import styles from './HomeStyle';
+import { View, Text, TouchableOpacity } from 'react-native';
 import io from 'socket.io-client';
+import MapView, { Marker } from 'react-native-maps';
 import * as Notifications from 'expo-notifications';
-import * as Location from 'expo-location';
-import { useNavigation } from '@react-navigation/native';
+
+import { getLocation, convertLocationToAddress } from '../../util/locationHelper';
+import ModalNotification from '../../components/Modal/ModalNotification';
 import pushNotificationsRegister from '../../util/pushNotificationsRegister';
+import styles from './HomeStyle';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -19,26 +19,18 @@ Notifications.setNotificationHandler({
 });
 
 const Home = ({ navigation }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     const [expoPushToken, setExpoPushToken] = useState('');
     const [notification, setNotification] = useState(false);
     const [receiveRequests, setReceiveRequests] = useState(false);
     const [ReceivedRequestData, setReceivedRequestData] = useState(true);
-    const [isAccidentVisible, setIsAccidentVisible] = useState(false);
-    const [senderInfo, setSenderInfo] = useState(null);
-
     const [partnerLocation, setPartnerLocation] = useState(null);
 
     const notificationListener = useRef();
     const responseListener = useRef();
 
-    const handleShowAccident = () => {
-        setIsAccidentVisible(true);
-    };
+    const socket = io('http://192.168.0.102:3000'); // https://railwaytest-production-a531.up.railway.app/
 
-    const socket = io('http://192.168.0.102:3000');
-    // https://railwaytest-production-a531.up.railway.app/
     const handleToggleReceiveRequests = () => {
         if (!receiveRequests) {
             socket.emit('send-expo-push-token', { token: expoPushToken });
@@ -49,17 +41,14 @@ const Home = ({ navigation }) => {
 
         setReceiveRequests(!receiveRequests);
     };
+
     useEffect(() => {
         // Get position Partner
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                console.log('Permission to access location was denied');
-                return;
+            const location = await getLocation();
+            if (location) {
+                setPartnerLocation(location);
             }
-
-            let location = await Location.getCurrentPositionAsync({});
-            setPartnerLocation(location);
         })();
 
         // Register receive notification
@@ -77,21 +66,16 @@ const Home = ({ navigation }) => {
         socket.on('new-rescue-request', (data) => {
             console.log('Nhận thông báo từ customer:', data);
             (async () => {
-                let add = await Location.reverseGeocodeAsync(data.location.coords); // convert customer's location to address
-                // Display notification
+                // convert customer's location to address:
+                let add = await convertLocationToAddress(data.location);
+                console.log(add);
                 // Cập nhật state để hiển thị thông báo chi tiết
                 setReceivedRequestData({
                     message: data.message,
-                    address: `${add[0].street}, ${add[0].district}, ${add[0].subregion}, ${add[0].city}`,
+                    address: `${add.street}, ${add.district}, ${add.subregion}, ${add.city}`,
                 });
                 setIsAlertVisible(true);
             })();
-        });
-
-        // Get cancel request from WS
-        socket.on('send-cancel-request', (data) => {
-            console.log(data);
-            setIsAlertVisible(false);
         });
 
         return () => {
@@ -100,40 +84,41 @@ const Home = ({ navigation }) => {
         };
     }, []);
 
-    const toggleOpen = () => {
-        setIsOpen(!isOpen);
-    };
     const toggleAlert = () => {
         setIsAlertVisible(!isAlertVisible);
     };
     return (
         <>
             <View style={styles.container}>
-                <MapView
-                    style={styles.map}
-                    initialRegion={{
-                        latitude: 37.78825,
-                        longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
-                    }}
-                >
-                    <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} title="Marker" />
-                </MapView>
-                <View>
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={styles.btnOpenReceiveRequest}
-                        onPress={handleToggleReceiveRequests}
+                {partnerLocation && (
+                    <MapView
+                        style={styles.map}
+                        initialRegion={{
+                            latitude: partnerLocation.coords.latitude,
+                            longitude: partnerLocation.coords.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        }}
                     >
-                        <Text style={styles.btnText}>
-                            {receiveRequests ? 'Đã bật chế độ nhận yêu cầu' : 'Mở chế độ nhận yêu cầu'}
-                        </Text>
-                    </TouchableOpacity>
-                    {/* <TouchableOpacity activeOpacity={0.8} style={styles.btnOpenReceiveRequest} onPress={toggleAlert}>
-                        <Text style={styles.btnText}>Hiển thị thông báo</Text>
-                    </TouchableOpacity> */}
-                </View>
+                        <Marker
+                            coordinate={{
+                                latitude: partnerLocation.coords.latitude,
+                                longitude: partnerLocation.coords.longitude,
+                            }}
+                            title="Your Location"
+                            description="You are here!"
+                        ></Marker>
+                    </MapView>
+                )}
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={styles.btnOpenReceiveRequest}
+                    onPress={handleToggleReceiveRequests}
+                >
+                    <Text style={styles.btnText}>
+                        {receiveRequests ? 'Đã bật chế độ nhận yêu cầu' : 'Mở chế độ nhận yêu cầu'}
+                    </Text>
+                </TouchableOpacity>
                 <ModalNotification
                     isVisible={isAlertVisible}
                     senderInfo={ReceivedRequestData}

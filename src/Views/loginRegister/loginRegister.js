@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, TextInput } from 'react-native';
 
-import styles from './loginRegisterStyle';
+import styles from './LoginRegisterStyle';
 
 const LoginRegister = ({ navigation }) => {
     return (

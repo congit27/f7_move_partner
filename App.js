@@ -2,13 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Splash from './src/Views/splash/splash';
-import LoginRegister from './src/Views/loginRegister/loginRegister';
-import OtpVerifier from './src/Views/otpVerifier/otpVerifier';
+import Splash from './src/Views/splash/Splash';
+import LoginRegister from './src/Views/loginRegister/LoginRegister';
+import OtpVerifier from './src/Views/otpVerifier/OtpVerifier';
 import Home from './src/Views/sidebar/Home';
 import MainDrawer from './src/components/MainDrawer';
-import Help from './src/Views/Help/Help';
-import RepairItem from './src/Views/Help/RepairItem';
+import Help from './src/Views/helpPage/Help';
+import RepairItem from './src/Views/helpPage/RepairItem';
 const Stack = createNativeStackNavigator();
 
 export default function App() {

@@ -12,8 +12,8 @@ import History from '../Views/sidebar/History';
 import Home from '../Views/sidebar/Home';
 import Profile from '../Views/sidebar/Profile';
 import Income from '../Views/sidebar/Income';
-import Help from '../Views/Help/Help';
-import RepairItem from '../Views/Help/RepairItem';
+import Help from '../Views/helpPage/Help';
+import RepairItem from '../Views/helpPage/RepairItem';
 
 const Drawer = createDrawerNavigator();
 
