@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import styles from './ModalNotificationStyle';
+import WebSocketManager from '../../util/WebSocketManager';
 
 const ModalNotification = ({ isVisible, toggleAlert, senderInfo, navigation }) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [location, setLocation] = useState(null);
 
-    const handelAccept = () => {
-        console.log('Gửi thông báo thành công');
-    };
+    const webSocketManager = new WebSocketManager();
 
     const handleConfirm = () => {
         // Điều hướng đến trang "Help" khi người dùng xác nhận
-        handelAccept();
+
+        webSocketManager.sendAcceptRequestNotification();
         navigation.navigate('Help');
         console.log(senderInfo);
         toggleAlert();

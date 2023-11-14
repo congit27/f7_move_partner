@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './RepairItemStyle';
 import DropDownPicker from 'react-native-dropdown-picker';
+import WebSocketManager from '../../util/WebSocketManager';
 
 const RepairItem = ({ navigation }) => {
     const [isOpen1, setIsOpen1] = useState(false);
@@ -11,6 +12,12 @@ const RepairItem = ({ navigation }) => {
     const [currentValue1, setCurrentValue1] = useState([]);
     const [currentValue2, setCurrentValue2] = useState([]);
     const [currentValue3, setCurrentValue3] = useState([]);
+
+    const webSocket = new WebSocketManager();
+
+    const handleCostNotice = () => {
+        webSocket.sendCostNotice();
+    };
 
     // Thêm useState cho giá trị tổng chi phí
     const [totalPrice, setTotalPrice] = useState(0);
@@ -131,7 +138,7 @@ const RepairItem = ({ navigation }) => {
                 />
             </View>
             <Text style={styles.textTotalPrice}>Tổng chi phí : {totalPrice} VND</Text>
-            <TouchableOpacity activeOpacity={0.8} style={styles.helpBtn}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.helpBtn} onPress={handleCostNotice}>
                 <Text style={styles.btnText}>Báo giá cho khách hàng</Text>
             </TouchableOpacity>
         </View>

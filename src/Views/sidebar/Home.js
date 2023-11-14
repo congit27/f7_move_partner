@@ -24,7 +24,6 @@ const Home = ({ navigation }) => {
     const [ReceivedRequestData, setReceivedRequestData] = useState(true);
     const [partnerLocation, setPartnerLocation] = useState(null);
 
-    const socket = io('http://192.168.0.102:3000'); // https://railwaytest-production-a531.up.railway.app/
     const webSocketManager = new WebSocketManager();
 
     const handleToggle = () => {

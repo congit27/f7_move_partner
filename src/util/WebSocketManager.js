@@ -55,6 +55,30 @@ class WebSocketManager {
         this.socket.emit('close-connect');
     }
 
+    sendAcceptRequestNotification() {
+        if (!this.socket || !this.socket.connected) {
+            console.log('Not connected. Connecting...');
+            this.connect();
+        }
+        this.socket.emit('accept-request', { acceptedState: true });
+    }
+
+    sendCameNotification() {
+        if (!this.socket || !this.socket.connected) {
+            console.log('Not connected. Connecting...');
+            this.connect();
+        }
+        this.socket.emit('come-notification', { isCome: true });
+    }
+
+    sendCostNotice() {
+        if (!this.socket || !this.socket.connected) {
+            console.log('Not connected. Connecting...');
+            this.connect();
+        }
+        this.socket.emit('cost-notice', { cost: '1.000$' });
+    }
+
     disconnect() {
         if (this.socket && this.socket.connected) {
             this.socket.disconnect();

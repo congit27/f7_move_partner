@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './HelpStyle';
+import WebSocketManager from '../../util/WebSocketManager';
 const Help = ({ navigation }) => {
     const [isShowRepairItem, setIsShowRepairItem] = useState(false);
+    const webSocket = new WebSocketManager();
     const toggleOpen = () => {
         if (isShowRepairItem) {
             navigation.navigate('RepairItem');
         }
+        webSocket.sendCameNotification();
         setIsShowRepairItem(!isShowRepairItem);
     };
 
