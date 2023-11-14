@@ -7,8 +7,8 @@ import * as Notifications from 'expo-notifications';
 
 import { getLocation, convertLocationToAddress } from '../../util/locationHelper';
 import ModalNotification from '../../components/Modal/ModalNotification';
-import pushNotificationsRegister from '../../util/pushNotificationsRegister';
 import styles from './HomeStyle';
+import WebSocketManager from '../../util/WebSocketManager';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -20,69 +20,57 @@ Notifications.setNotificationHandler({
 
 const Home = ({ navigation }) => {
     const [isAlertVisible, setIsAlertVisible] = useState(false);
-    const [expoPushToken, setExpoPushToken] = useState('');
-    const [notification, setNotification] = useState(false);
-    const [receiveRequests, setReceiveRequests] = useState(false);
+    const [isReceivingRequest, setIsReceivingRequest] = useState(false);
     const [ReceivedRequestData, setReceivedRequestData] = useState(true);
     const [partnerLocation, setPartnerLocation] = useState(null);
 
-    const notificationListener = useRef();
-    const responseListener = useRef();
-
     const socket = io('http://192.168.0.102:3000'); // https://railwaytest-production-a531.up.railway.app/
+    const webSocketManager = new WebSocketManager();
 
-    const handleToggleReceiveRequests = () => {
-        if (!receiveRequests) {
-            socket.emit('send-expo-push-token', { token: expoPushToken });
-            console.log('token: ', expoPushToken);
+    const handleToggle = () => {
+        setIsReceivingRequest(!isReceivingRequest);
+        if (!isReceivingRequest) {
+            webSocketManager.sendExpoPushToken();
         } else {
-            socket.emit('close-connect');
+            webSocketManager.closeReceiveRequest();
+            webSocketManager.disconnect();
         }
-
-        setReceiveRequests(!receiveRequests);
     };
 
     useEffect(() => {
-        // Get position Partner
-        (async () => {
+        const fetchData = async () => {
             const location = await getLocation();
             if (location) {
                 setPartnerLocation(location);
             }
-        })();
+        };
 
-        // Register receive notification
-        pushNotificationsRegister().then((token) => setExpoPushToken(token));
+        fetchData();
+    }, []);
 
-        notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-            setNotification(notification);
-        });
-
-        responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response);
-        });
-
-        // Get data From WebSocket
-        socket.on('new-rescue-request', (data) => {
-            console.log('Nhận thông báo từ customer:', data);
+    useEffect(() => {
+        const listener = (data) => {
+            console.log('Received new-rescue-request:', data);
             (async () => {
-                // convert customer's location to address:
                 let add = await convertLocationToAddress(data.location);
-                console.log(add);
-                // Cập nhật state để hiển thị thông báo chi tiết
                 setReceivedRequestData({
                     message: data.message,
                     address: `${add.street}, ${add.district}, ${add.subregion}, ${add.city}`,
                 });
                 setIsAlertVisible(true);
             })();
-        });
+        };
+
+        webSocketManager.addListener(listener);
+
+        if (isReceivingRequest) {
+            webSocketManager.receiveRequest();
+        }
 
         return () => {
-            Notifications.removeNotificationSubscription(notificationListener.current);
-            Notifications.removeNotificationSubscription(responseListener.current);
+            webSocketManager.removeListener(listener);
         };
-    }, []);
+    }, [isReceivingRequest]);
 
     const toggleAlert = () => {
         setIsAlertVisible(!isAlertVisible);
@@ -110,13 +98,9 @@ const Home = ({ navigation }) => {
                         ></Marker>
                     </MapView>
                 )}
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    style={styles.btnOpenReceiveRequest}
-                    onPress={handleToggleReceiveRequests}
-                >
+                <TouchableOpacity activeOpacity={0.8} style={styles.btnOpenReceiveRequest} onPress={handleToggle}>
                     <Text style={styles.btnText}>
-                        {receiveRequests ? 'Đã bật chế độ nhận yêu cầu' : 'Mở chế độ nhận yêu cầu'}
+                        {isReceivingRequest ? 'Đã bật chế độ nhận yêu cầu' : 'Mở chế độ nhận yêu cầu'}
                     </Text>
                 </TouchableOpacity>
                 <ModalNotification

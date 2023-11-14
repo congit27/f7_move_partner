@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import styles from './ModalNotificationStyle';
-import io from 'socket.io-client';
 
 const ModalNotification = ({ isVisible, toggleAlert, senderInfo, navigation }) => {
-    const socket = io('http://192.168.0.102:3000');
     const [errorMsg, setErrorMsg] = useState(null);
     const [location, setLocation] = useState(null);
 
     const handelAccept = () => {
         console.log('Gửi thông báo thành công');
-        socket.emit('Response', { message: 'Yêu cầu được chấp nhận.' });
     };
 
     const handleConfirm = () => {
