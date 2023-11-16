@@ -1,8 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     loginContainer: {
         marginHorizontal: 40,
+        flex: 1,
+        height: Dimensions.get('window').height,
     },
     title: {
         textTransform: 'uppercase',
@@ -11,6 +13,18 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: 180,
         marginBottom: 50,
+    },
+    colorRed: {
+        color: 'red',
+    },
+
+    titleSignup: {
+        textTransform: 'uppercase',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: 80,
+        marginBottom: 20,
     },
 
     loginContent: {
@@ -24,6 +38,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 5,
         height: 50,
+        marginBottom: 10,
     },
 
     logoSdt: {
@@ -48,6 +63,35 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 17,
         fontWeight: 'bold',
+    },
+    btnSignup: {
+        backgroundColor: 'wheat',
+        padding: 5,
+        borderRadius: 5,
+    },
+
+    btnTextSignup: {
+        textAlign: 'center',
+        color: '#333',
+        fontSize: 17,
+        fontWeight: 'bold',
+    },
+    registerCont: {
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });
 
