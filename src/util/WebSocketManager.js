@@ -13,7 +13,7 @@ class WebSocketManager {
             this.disconnect();
         }
 
-        this.socket = io('https://railwaytest-production-a531.up.railway.app/');
+        this.socket = io('http://192.168.1.13:3000');
 
         this.socket.on('connect', () => {
             console.log('Connected to the server');
@@ -55,12 +55,12 @@ class WebSocketManager {
         this.socket.emit('close-connect');
     }
 
-    sendAcceptRequestNotification() {
+    sendAcceptRequestNotification(location) {
         if (!this.socket || !this.socket.connected) {
             console.log('Not connected. Connecting...');
             this.connect();
         }
-        this.socket.emit('accept-request', { acceptedState: true });
+        this.socket.emit('accept-request', { acceptedState: true, location: location });
     }
 
     sendCameNotification() {

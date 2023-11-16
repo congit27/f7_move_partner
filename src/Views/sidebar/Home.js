@@ -23,6 +23,7 @@ const Home = ({ navigation }) => {
     const [isReceivingRequest, setIsReceivingRequest] = useState(false);
     const [ReceivedRequestData, setReceivedRequestData] = useState(true);
     const [partnerLocation, setPartnerLocation] = useState(null);
+    const [customerLocation, setCustomerLocation] = useState(null);
 
     const webSocketManager = new WebSocketManager();
 
@@ -49,7 +50,8 @@ const Home = ({ navigation }) => {
 
     useEffect(() => {
         const listener = (data) => {
-            console.log('Received new-rescue-request:', data);
+            setCustomerLocation(data.location);
+            console.log(customerLocation);
             (async () => {
                 let add = await convertLocationToAddress(data.location);
                 setReceivedRequestData({
@@ -95,6 +97,16 @@ const Home = ({ navigation }) => {
                             title="Your Location"
                             description="You are here!"
                         ></Marker>
+                        {customerLocation && (
+                            <Marker
+                                coordinate={{
+                                    latitude: 16.08166, // customerLocation.coords.latitude
+                                    longitude: 108.21615, // customerLocation.coords.longitude
+                                }}
+                                title="Customer's Location"
+                                description="Come here!"
+                            ></Marker>
+                        )}
                     </MapView>
                 )}
                 <TouchableOpacity activeOpacity={0.8} style={styles.btnOpenReceiveRequest} onPress={handleToggle}>
