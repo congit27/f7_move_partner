@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, TextInput } from 'react-native';
 
-import styles from './otpVerifierStyle';
+import styles from './OtpVerifierStyle';
 
 const OtpVerifier = ({ navigation }) => {
     return (

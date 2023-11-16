@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 
 import Images from '../../../assets/Images';
-import styles from './splashStyle';
+import styles from './SplashStyle';
 
 const Splash = ({ navigation }) => {
     return (

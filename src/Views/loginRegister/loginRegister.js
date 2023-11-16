@@ -29,7 +29,7 @@ const LoginRegister = ({ navigation }) => {
         setLoading(true);
         try {
             await axios
-                .post('http://192.168.1.4:8080/api/login-partner', {
+                .post('http://192.168.1.13:8080/api/login-partner', {
                     userName: userNameLogin,
                     password: passwordLogin,
                 })
@@ -40,7 +40,7 @@ const LoginRegister = ({ navigation }) => {
                     } else {
                         navigation.navigate('MainDrawer');
                     }
-                    setLoading(false).catch((err) => console.log(err));
+                    setLoading(false);
                 });
         } catch (error) {
             console.log('Axios error: ', error);
@@ -62,7 +62,7 @@ const LoginRegister = ({ navigation }) => {
 
         try {
             await axios
-                .post('http://192.168.1.4:8080/api/register-partner', {
+                .post('http://192.168.1.13:8080/api/register-partner', {
                     loginAccount: userNameP,
                     password: passwordP,
                     fullName: fullNameP,

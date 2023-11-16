@@ -13,7 +13,7 @@ class WebSocketManager {
             this.disconnect();
         }
 
-        this.socket = io('http://192.168.1.13:3000');
+        this.socket = io('https://railwaytest-production-a531.up.railway.app/');
 
         this.socket.on('connect', () => {
             console.log('Connected to the server');
