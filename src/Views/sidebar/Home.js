@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, BackHandler, Alert } from 'react-native';
 import io from 'socket.io-client';
 import MapView, { Marker } from 'react-native-maps';
 import * as Notifications from 'expo-notifications';
@@ -36,6 +36,16 @@ const Home = ({ navigation }) => {
             webSocketManager.disconnect();
         }
     };
+
+    useEffect(() => {
+        const backAction = () => {
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => backHandler.remove();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,8 +84,14 @@ const Home = ({ navigation }) => {
     }, [isReceivingRequest]);
 
     const toggleAlert = () => {
-        setIsAlertVisible(!isAlertVisible);
+        setIsAlertVisible((prev) => !prev);
     };
+
+    const handleCloseModal = () => {
+        setIsAlertVisible(false);
+        setCustomerLocation(null);
+    };
+
     return (
         <>
             <View style={styles.container}>
@@ -119,6 +135,7 @@ const Home = ({ navigation }) => {
                     senderInfo={ReceivedRequestData}
                     toggleAlert={toggleAlert}
                     navigation={navigation}
+                    handleCloseModal={handleCloseModal}
                 />
             </View>
         </>

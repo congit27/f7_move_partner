@@ -15,9 +15,18 @@ const RepairItem = ({ navigation }) => {
 
     const webSocket = new WebSocketManager();
 
+    let dataCo = {};
+    // setDataCost({});
     const handleCostNotice = () => {
-        webSocket.sendCostNotice();
+        dataCo = {
+            currentValue1,
+            currentValue2,
+            currentValue3,
+        };
+
+        webSocket.sendCostNotice(dataCo);
     };
+    console.log('Check costData:', dataCo);
 
     // Thêm useState cho giá trị tổng chi phí
     const [totalPrice, setTotalPrice] = useState(0);

@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, Image, BackHandler, Alert } from 'react-native';
+import React, { useEffect } from 'react';
 import { DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,6 +18,16 @@ import RepairItem from '../Views/helpPage/RepairItem';
 const Drawer = createDrawerNavigator();
 
 const MainDrawer = () => {
+    useEffect(() => {
+        const backAction = () => {
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => backHandler.remove();
+    }, []);
+
     return (
         <NavigationContainer independent={true}>
             <Drawer.Navigator
