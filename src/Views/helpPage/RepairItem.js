@@ -12,6 +12,7 @@ const RepairItem = ({ navigation }) => {
     const [currentValue1, setCurrentValue1] = useState([]);
     const [currentValue2, setCurrentValue2] = useState([]);
     const [currentValue3, setCurrentValue3] = useState([]);
+    const [dataRepairItem, setDataRepairItem] = useState([]);
 
     const webSocket = new WebSocketManager();
 
@@ -26,7 +27,6 @@ const RepairItem = ({ navigation }) => {
 
         webSocket.sendCostNotice(dataCo);
     };
-    console.log('Check costData:', dataCo);
 
     // Thêm useState cho giá trị tổng chi phí
     const [totalPrice, setTotalPrice] = useState(0);
