@@ -29,7 +29,7 @@ const LoginRegister = ({ navigation }) => {
         setLoading(true);
         try {
             await axios
-                .post('http://192.168.1.8:8080/api/login-partner', {
+                .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
                     userName: userNameLogin,
                     password: passwordLogin,
                 })
@@ -62,7 +62,7 @@ const LoginRegister = ({ navigation }) => {
 
         try {
             await axios
-                .post('http://192.168.1.8:8080/api/register-partner', {
+                .post('https://f7movebackend-production.up.railway.app/api/register-partner', {
                     loginAccount: userNameP,
                     password: passwordP,
                     fullName: fullNameP,
