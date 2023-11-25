@@ -21,7 +21,7 @@ Notifications.setNotificationHandler({
 const Home = ({ navigation }) => {
     const [isAlertVisible, setIsAlertVisible] = useState(false);
     const [isReceivingRequest, setIsReceivingRequest] = useState(false);
-    const [ReceivedRequestData, setReceivedRequestData] = useState(true);
+    const [ReceivedRequestData, setReceivedRequestData] = useState({});
     const [partnerLocation, setPartnerLocation] = useState(null);
     const [customerLocation, setCustomerLocation] = useState(null);
     const [routeData, setRouteData] = useState(null);
@@ -91,7 +91,7 @@ const Home = ({ navigation }) => {
             (async () => {
                 let add = await convertLocationToAddress(data.location);
                 setReceivedRequestData({
-                    message: data.message,
+                    ...data,
                     address: `${add.street}, ${add.district}, ${add.subregion}, ${add.city}`,
                 });
                 setIsAlertVisible(true);
