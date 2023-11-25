@@ -13,7 +13,7 @@ class WebSocketManager {
             this.disconnect();
         }
 
-        this.socket = io('https://railwaytest-production-a531.up.railway.app/');
+        this.socket = io('https://railwaytest-production-1ca0.up.railway.app/');
 
         this.socket.on('connect', () => {
             console.log('Connected to the server');
@@ -71,12 +71,12 @@ class WebSocketManager {
         this.socket.emit('come-notification', { isCome: true });
     }
 
-    sendCostNotice() {
+    sendCostNotice(data) {
         if (!this.socket || !this.socket.connected) {
             console.log('Not connected. Connecting...');
             this.connect();
         }
-        this.socket.emit('cost-notice', { cost: '1.000$' });
+        this.socket.emit('cost-notice', data);
     }
 
     disconnect() {

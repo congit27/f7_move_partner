@@ -1,7 +1,14 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import MapView, { Marker, Polyline } from 'react-native-maps';
+=======
+import { useState, useRef, useEffect } from 'react';
+import { View, Text, TouchableOpacity, BackHandler, Alert } from 'react-native';
+import io from 'socket.io-client';
+import MapView, { Marker } from 'react-native-maps';
+>>>>>>> 4708869a9f1c79aabc09b618887330f646933790
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
 
@@ -37,6 +44,16 @@ const Home = ({ navigation }) => {
             webSocketManager.disconnect();
         }
     };
+
+    useEffect(() => {
+        const backAction = () => {
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => backHandler.remove();
+    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -137,8 +154,14 @@ const Home = ({ navigation }) => {
     }
 
     const toggleAlert = () => {
-        setIsAlertVisible(!isAlertVisible);
+        setIsAlertVisible((prev) => !prev);
     };
+
+    const handleCloseModal = () => {
+        setIsAlertVisible(false);
+        setCustomerLocation(null);
+    };
+
     return (
         <>
             <View style={styles.container}>
@@ -189,6 +212,7 @@ const Home = ({ navigation }) => {
                     senderInfo={ReceivedRequestData}
                     toggleAlert={toggleAlert}
                     navigation={navigation}
+                    handleCloseModal={handleCloseModal}
                 />
             </View>
         </>

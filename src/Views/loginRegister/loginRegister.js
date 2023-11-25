@@ -29,7 +29,11 @@ const LoginRegister = ({ navigation }) => {
         setLoading(true);
         try {
             await axios
+<<<<<<< HEAD
                 .post('http://192.168.1.8:8080/api/login-partner', {
+=======
+                .post('http://192.168.68.157:8080/api/login-partner', {
+>>>>>>> 4708869a9f1c79aabc09b618887330f646933790
                     userName: userNameLogin,
                     password: passwordLogin,
                 })
@@ -62,7 +66,11 @@ const LoginRegister = ({ navigation }) => {
 
         try {
             await axios
+<<<<<<< HEAD
                 .post('http://192.168.1.8:8080/api/register-partner', {
+=======
+                .post('http://192.168.68.157:8080/api/register-partner', {
+>>>>>>> 4708869a9f1c79aabc09b618887330f646933790
                     loginAccount: userNameP,
                     password: passwordP,
                     fullName: fullNameP,
