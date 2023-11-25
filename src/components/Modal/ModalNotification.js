@@ -5,7 +5,7 @@ import WebSocketManager from '../../util/WebSocketManager';
 import { getLocation } from '../../util/locationHelper';
 import { io } from 'socket.io-client';
 
-const socket = io('https://railwaytest-production-1ca0.up.railway.app/');
+const socket = io('https://f7movebackend-production.up.railway.app/');
 
 const ModalNotification = ({ handleCloseModal, isVisible, toggleAlert, senderInfo, navigation }) => {
     const [location, setLocation] = useState(null);
