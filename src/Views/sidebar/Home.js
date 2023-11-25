@@ -1,14 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
-=======
 import { useState, useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, BackHandler, Alert } from 'react-native';
-import io from 'socket.io-client';
 import MapView, { Marker } from 'react-native-maps';
->>>>>>> 4708869a9f1c79aabc09b618887330f646933790
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
 
