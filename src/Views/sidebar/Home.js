@@ -162,16 +162,16 @@ const Home = ({ navigation }) => {
                     <MapView
                         style={styles.map}
                         initialRegion={{
-                            latitude: 16.08166, //partnerLocation.coords.latitude,
-                            longitude: 108.21615, //partnerLocation.coords.longitude,
+                            latitude: partnerLocation.coords.latitude,
+                            longitude: partnerLocation.coords.longitude,
                             latitudeDelta: 0.0922,
                             longitudeDelta: 0.0421,
                         }}
                     >
                         <Marker
                             coordinate={{
-                                latitude: 16.08166, //partnerLocation.coords.latitude,
-                                longitude: 108.21615, //partnerLocation.coords.longitude,
+                                latitude: customerLocation.coords.latitude,
+                                longitude: customerLocation.coords.longitude,
                             }}
                             title="Your Location"
                             description="You are here!"

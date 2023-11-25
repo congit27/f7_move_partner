@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity, BackHandler, Alert, ToastAndroid } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, BackHandler, Alert } from 'react-native';
 import styles from './ModalNotificationStyle';
 import WebSocketManager from '../../util/WebSocketManager';
 import { getLocation } from '../../util/locationHelper';
@@ -36,7 +36,7 @@ const ModalNotification = ({ handleCloseModal, isVisible, toggleAlert, senderInf
     useEffect(() => {
         socket.on('customer_cancel_help', (data) => {
             handleCloseModal();
-            showToastWithGravityAndOffset();
+            showCancelAlert();
         });
     }, [socket]);
 
@@ -49,8 +49,8 @@ const ModalNotification = ({ handleCloseModal, isVisible, toggleAlert, senderInf
         toggleAlert();
     };
 
-    const showToastWithGravityAndOffset = () => {
-        ToastAndroid.showWithGravityAndOffset('Customer cancel!!!', ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+    const showCancelAlert = () => {
+        Alert.alert('Khách hàng đã hủy yêu cầu!');
     };
     console.log('>>>Check senderInfo:', senderInfo);
     return (
