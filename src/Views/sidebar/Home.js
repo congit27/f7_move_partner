@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, BackHandler, Alert } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, BackHandler } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Notifications from 'expo-notifications';
 import axios from 'axios';
