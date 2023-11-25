@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
                     console.log(customerLocation.coords.longitude);
                     const response = await axios.get(
                         // `https://rsapi.goong.io/Direction?${customerLocation.coords.longitude},${customerLocation.coords.latitude};${partnerLocation.coords.longitude},${partnerLocation.coords.latitude}?key=${apiKey}`,
-                        `https://rsapi.goong.io/Direction?origin=16.08166,108.21615&destination=${customerLocation.coords.latitude},${customerLocation.coords.longitude}&vehicle=car&api_key=${apiKey}`,
+                        `https://rsapi.goong.io/Direction?origin=${partnerLocation.coords.latitude},${partnerLocation.coords.longitude}&destination=${customerLocation.coords.latitude},${customerLocation.coords.longitude}&vehicle=car&api_key=${apiKey}`,
                     );
 
                     if (response.status === 200) {
