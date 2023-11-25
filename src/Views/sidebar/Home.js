@@ -170,8 +170,8 @@ const Home = ({ navigation }) => {
                     >
                         <Marker
                             coordinate={{
-                                latitude: customerLocation.coords.latitude,
-                                longitude: customerLocation.coords.longitude,
+                                latitude: partnerLocation.coords.latitude,
+                                longitude: partnerLocation.coords.longitude,
                             }}
                             title="Your Location"
                             description="You are here!"
