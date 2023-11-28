@@ -1,22 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    repairItemContainer: {
+    container: {
         flex: 1,
         backgroundColor: '#FFF',
+        paddingHorizontal: 20,
     },
-    titleText: {
-        textAlign: 'center',
-        marginTop: 50,
-        fontWeight: '500',
+    serviceContainer: {
+        marginVertical: 10,
+        flex: 1,
     },
     line: {
         borderBottomWidth: 1,
         borderBlockColor: '#CCC',
         marginTop: 15,
     },
+    itemContainer: {
+        marginTop: 50,
+    },
     repairItemContent: {
-        padding: 20,
+        // paddingHorizontal: 20,
     },
     text: {
         fontWeight: '500',
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     dropdownStyle: {
-        marginTop: 20,
+        marginHorizontal: 20,
     },
     repairItem: {
         flexDirection: 'row',
@@ -40,6 +43,13 @@ const styles = StyleSheet.create({
         width: 30,
         marginLeft: 10,
     },
+    title: {
+        textAlign: 'center',
+        fontSize: 23,
+        marginTop: 70,
+        fontWeight: '900',
+    },
+
     repairItemRight: {
         flexDirection: 'column',
     },
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
     },
     textTotalPrice: {
         fontSize: 16,
-        marginTop: 300,
+        marginTop: 20,
         alignItems: 'center',
         textAlign: 'center',
     },
@@ -62,7 +72,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#FF7527',
         padding: 15,
         borderRadius: 10,
+        paddingHorizontal: 20,
         marginTop: 30,
+        marginBottom: 60,
+    },
+    colorRed: {
+        color: 'red',
+        fontSize: 23,
     },
     btnText: {
         textAlign: 'center',

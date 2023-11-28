@@ -27,7 +27,7 @@ export default function App() {
                         headerShown: false,
                         cardStyleInterpolator: forFade,
                     }}
-                    initialRouteName="Splash"
+                    initialRouteName="RepairItem"
                 >
                     <Stack.Screen name="Splash" component={Splash} options={{ cardStyleInterpolator: forFade }} />
                     <Stack.Screen
