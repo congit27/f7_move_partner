@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+
 import Splash from './src/Views/splash/splash';
 import LoginRegister from './src/Views/loginRegister/loginRegister';
 import OtpVerifier from './src/Views/otpVerifier/otpVerifier';
@@ -17,27 +20,41 @@ export default function App() {
         },
     });
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    cardStyleInterpolator: forFade,
-                }}
-                initialRouteName="Splash"
-            >
-                <Stack.Screen name="Splash" component={Splash} options={{ cardStyleInterpolator: forFade }} />
-                <Stack.Screen
-                    name="LoginRegister"
-                    component={LoginRegister}
-                    options={{ cardStyleInterpolator: forFade }}
-                />
-                <Stack.Screen name="OtpVerifier" component={OtpVerifier} options={{ cardStyleInterpolator: forFade }} />
-                <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: forFade }} />
-                <Stack.Screen name="MainDrawer" component={MainDrawer} options={{ cardStyleInterpolator: forFade }} />
-                <Stack.Screen name="Help" component={Help} options={{ cardStyleInterpolator: forFade }} />
-                <Stack.Screen name="RepairItem" component={RepairItem} options={{ cardStyleInterpolator: forFade }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                        cardStyleInterpolator: forFade,
+                    }}
+                    initialRouteName="Splash"
+                >
+                    <Stack.Screen name="Splash" component={Splash} options={{ cardStyleInterpolator: forFade }} />
+                    <Stack.Screen
+                        name="LoginRegister"
+                        component={LoginRegister}
+                        options={{ cardStyleInterpolator: forFade }}
+                    />
+                    <Stack.Screen
+                        name="OtpVerifier"
+                        component={OtpVerifier}
+                        options={{ cardStyleInterpolator: forFade }}
+                    />
+                    <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: forFade }} />
+                    <Stack.Screen
+                        name="MainDrawer"
+                        component={MainDrawer}
+                        options={{ cardStyleInterpolator: forFade }}
+                    />
+                    <Stack.Screen name="Help" component={Help} options={{ cardStyleInterpolator: forFade }} />
+                    <Stack.Screen
+                        name="RepairItem"
+                        component={RepairItem}
+                        options={{ cardStyleInterpolator: forFade }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
     );
 }
 

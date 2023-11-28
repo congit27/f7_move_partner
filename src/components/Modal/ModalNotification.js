@@ -4,6 +4,7 @@ import styles from './ModalNotificationStyle';
 import WebSocketManager from '../../util/WebSocketManager';
 import { getLocation } from '../../util/locationHelper';
 import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 const socket = io('https://f7movebackend-production.up.railway.app/');
 
@@ -40,10 +41,11 @@ const ModalNotification = ({ handleCloseModal, isVisible, toggleAlert, senderInf
         });
     }, [socket]);
 
+    const userIDData = useSelector((state) => state.user.userID);
     const handleConfirm = () => {
         // Điều hướng đến trang "Help" khi người dùng xác nhận
 
-        webSocketManager.sendAcceptRequestNotification(location);
+        webSocketManager.sendAcceptRequestNotification(location, { ...senderInfo, namePartner: userIDData });
         navigation.navigate('Help', { ...senderInfo });
         console.log(senderInfo);
         toggleAlert();
@@ -68,7 +70,7 @@ const ModalNotification = ({ handleCloseModal, isVisible, toggleAlert, senderInf
                         </View>
                         <View style={styles.carInfo}>
                             <Text style={styles.carText}>Thông tin</Text>
-                            <Text style={styles.carCompany}>Hãng xe: {senderInfo.carBrand}</Text>
+                            <Text style={styles.carCompany}>Hãng xe: {senderInfo.selectedBrand}</Text>
                             <Text style={styles.carLicensePlates}>Biển số: {senderInfo.licensePlates}</Text>
                         </View>
                         <View style={styles.carStatus}>

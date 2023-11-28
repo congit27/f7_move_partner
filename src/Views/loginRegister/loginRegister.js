@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, ToastAndroid, ActivityIndicator, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { userSlice } from '../../redux/reducers/userSlice';
 
 import styles from './loginRegisterStyle';
 
@@ -25,19 +27,23 @@ const LoginRegister = ({ navigation }) => {
         setToggleLR(!toggleLR);
     };
 
+    const dispatch = useDispatch();
+
     const handleLogin = async () => {
         setLoading(true);
         try {
             await axios
-                .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
+                // .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
+                .post('http://192.168.31.136:8080/api/login-partner', {
                     userName: userNameLogin,
                     password: passwordLogin,
                 })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.data.EC !== 0) {
                         console.log('>>>Check data: ', res.data);
                         setNoteMessage(res.data.EM);
                     } else {
+                        await dispatch(userSlice.actions.setUserID(userNameLogin));
                         navigation.navigate('MainDrawer');
                     }
                     setLoading(false);

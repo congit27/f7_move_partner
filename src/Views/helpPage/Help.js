@@ -31,7 +31,7 @@ const Help = ({ navigation, route }) => {
                     </View>
                     <View style={styles.carInfo}>
                         <Text style={styles.text}>Thông tin</Text>
-                        <Text style={styles.carCompany}>Hãng xe: {data.carBrand}</Text>
+                        <Text style={styles.carCompany}>Hãng xe: {data.selectedBrand}</Text>
                         <Text style={styles.carLicensePlates}>Biển số: {data.licensePlates}</Text>
                     </View>
                     <View style={styles.carStatus}>

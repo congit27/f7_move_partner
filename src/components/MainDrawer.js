@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Images from '../../assets/Images';
 import { MaterialIcons, SimpleLineIcons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
 import Notification from '../Views/sidebar/Notification';
 import Setting from '../Views/sidebar/Setting';

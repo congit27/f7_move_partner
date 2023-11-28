@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import pushNotificationsRegister from './pushNotificationsRegister';
+import axios from 'axios';
 
 class WebSocketManager {
     constructor() {
@@ -43,6 +44,7 @@ class WebSocketManager {
         }
 
         this.socket.on('new-rescue-request', (data) => {
+            console.log('Check rescue requestt>>>>:', data);
             this.notifyListeners(data);
         });
     }
@@ -55,11 +57,25 @@ class WebSocketManager {
         this.socket.emit('close-connect');
     }
 
-    sendAcceptRequestNotification(location) {
+    async sendAcceptRequestNotification(location, data) {
         if (!this.socket || !this.socket.connected) {
             console.log('Not connected. Connecting...');
             this.connect();
         }
+
+        //Save data receive request to database
+        try {
+            await axios
+                // .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
+                .post('http://192.168.31.136:8080/api/save-rescue-require-partner', {
+                    nameCustomer: data.userName,
+                    namePartner: data.namePartner,
+                    reason: data.statusContent,
+                });
+        } catch (error) {
+            console.log('Axios error: ', error);
+        }
+
         this.socket.emit('accept-request', { acceptedState: true, location: location });
     }
 
