@@ -34,7 +34,7 @@ const LoginRegister = ({ navigation }) => {
         try {
             await axios
                 // .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
-                .post('http://192.168.31.136:8080/api/login-partner', {
+                .post('http://192.168.1.99:8080/api/login-partner', {
                     userName: userNameLogin,
                     password: passwordLogin,
                 })

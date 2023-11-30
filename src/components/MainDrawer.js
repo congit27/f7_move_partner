@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 
 import Notification from '../Views/sidebar/Notification';
 import Setting from '../Views/sidebar/Setting';
-import History from '../Views/sidebar/History';
+import Service from '../Views/sidebar/Service';
 import Home from '../Views/sidebar/Home';
 import Profile from '../Views/sidebar/Profile';
 import Income from '../Views/sidebar/Income';
@@ -90,13 +90,13 @@ const MainDrawer = () => {
                     component={Home}
                 />
                 <Drawer.Screen
-                    name="History"
+                    name="Service"
                     options={{
-                        drawerLabel: 'History',
-                        title: 'History',
+                        drawerLabel: 'Service',
+                        title: 'Service',
                         drawerIcon: () => <SimpleLineIcons name="clock" size={20} color="#fff" />,
                     }}
-                    component={History}
+                    component={Service}
                 />
                 <Drawer.Screen
                     name="Income"

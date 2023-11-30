@@ -19,7 +19,7 @@ const RepairItem = ({ navigation }) => {
     useEffect(() => {
         const getAPIServices = async () => {
             try {
-                await axios.get('http://192.168.1.99:8080/api/get-all-services').then((res) => {
+                await axios.get('http://192.168.31.138:8080/api/get-all-services').then((res) => {
                     setDataServices(res.data.DT);
                 });
             } catch (error) {
@@ -51,6 +51,7 @@ const RepairItem = ({ navigation }) => {
             webSocket.sendCostNotice(cost);
             try {
                 await costSlice.actions.clearCostData();
+                navigation.navigate('Home');
             } catch (error) {
                 console.log(error);
             }

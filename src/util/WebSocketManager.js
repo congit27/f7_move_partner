@@ -67,7 +67,7 @@ class WebSocketManager {
         try {
             await axios
                 // .post('https://f7movebackend-production.up.railway.app/api/login-partner', {
-                .post('http://192.168.31.136:8080/api/save-rescue-require-partner', {
+                .post('http://192.168.31.138:8080/api/save-rescue-require-partner', {
                     nameCustomer: data.userName,
                     namePartner: data.namePartner,
                     reason: data.statusContent,
