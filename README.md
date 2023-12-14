@@ -1,4 +1,4 @@
-# Partner App
+# Rescue Partner App
 
 ## Introduction
 
@@ -19,15 +19,14 @@ A React Native Expo App using React Native.. used to confirm vehicle rescue requ
 </div>
 
 ## Technology
-The application is built with: 
-    * React Native with Expo
-    * React 
-    * React Native Maps
-    * Expo Location
-    * Expo Notifications
-    * Redux
-    * Socket.io
-    * ..
+* React Native with Expo
+* React 
+* React Native Maps
+* Expo Location
+* Expo Notifications
+* Redux
+* Socket.io
+* ..
 ## Features
 * Login/Register
 * Open/Close receiving rescue requests mode
